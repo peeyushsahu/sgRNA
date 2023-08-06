@@ -1,0 +1,10 @@
+{
+  "library.fa.sam": {
+    "Number of total gRNA": 77736,
+    "Number of unaligned gRNA": 482,
+    "Number of total aligned gRNA": 77254,
+    "Number of gRNA with correct annotations": 61082,
+    "Number of gRNA with in-correct annotations": 16172,
+    "Number of matches with indels/mismatches": 2
+  }
+}
