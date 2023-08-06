@@ -158,7 +158,7 @@ outinfo = {sam_path: {
 
 
 # All the matched genes from matched_sam to be concatnated with TCGA rna exp data
-final_sam_tcga = add_tcga_data(matched_sam, tcga_path=os.path.join(outpath, "TCGA"))
+final_sam_tcga = add_tcga_data(matched_sam, tcga_path=os.path.join("output", "TCGA"))
 final_sam_tcga.to_csv(os.path.join(outpath, sample_name+'_final_df.tsv'), header=True, sep='\t', index=None)
 print("Output of the pipeline is saved in: {}".format(os.path.join(outpath, 'final_df.tsv')))
 
