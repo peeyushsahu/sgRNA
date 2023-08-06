@@ -44,12 +44,11 @@ process bowtie_align {
     """
     ${bowtie}/bowtie2 \
     -L 12 \
-    --norc \
     -p $task.cpus \
     --un $outpath \
     -x $bwt2ind/bwt2 \
     -f $sequencefile \
-    -S $samout 2>&1 | tee $outpath/$filename-bowtie2.log
+    -S $samout 2>&1 | tee $outpath/$filename-bowtie2.log  #--no-unal
     """
 }
 
@@ -61,12 +60,13 @@ process seq_processing {
     path genomegff
     path samout
     path outpath
+    path tcga
 
     script:
     filename = samout.toString().split('/')[-1]
 
     """
-    python3 $project_path/sgRNA_processing.py $filename $genomegff $samout $outpath
+    python3 $project_path/sgRNA_processing.py $filename $genomegff $samout $outpath $tcga
     """
 
 }
