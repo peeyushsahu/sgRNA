@@ -17,6 +17,7 @@ sample_name = sys.argv[1]
 gff_path = sys.argv[2]
 sam_path = sys.argv[3]
 outpath = sys.argv[4]
+tcga = sys.argv[5]
 
 
 def gff_parser(annot):
@@ -125,11 +126,11 @@ def add_tcga_data(matched_sam, tcga_path):
         for name in files:
             rna_file = os.path.join(path, name)
             rna_data = pd.read_csv(rna_file, header=None, index_col=None, sep='\t', skiprows=6)
-            #print(rna_data.head())
+            print(rna_data.head())
             tnx_df = rna_data[rna_data[1].isin(selected_matched_genes)].iloc[:,[1,6]]
             tnx_df.columns = ['gene_name', name]
             matched_sam_temp = matched_sam_temp.merge(tnx_df, how='left', on='gene_name')
-    #print(matched_sam_temp.head())
+    print(matched_sam_temp.head())
     return matched_sam_temp
 
 
@@ -186,7 +187,7 @@ outinfo = {sam_path: {
 
 
 # All the matched genes from extended_sam to be concatnated with TCGA rna exp data
-final_sam_tcga = add_tcga_data(extended_sam, tcga_path=os.path.join("data/TCGA"))
+final_sam_tcga = add_tcga_data(extended_sam, tcga_path=tcga)
 final_sam_tcga.to_csv(os.path.join(outpath, sample_name+'_final_df.tsv'), header=True, sep='\t', index=None)
 print("Output of the pipeline is saved in: {}".format(os.path.join(outpath, sample_name+'_final_df.tsv')))
 
