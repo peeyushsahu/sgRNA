@@ -56,7 +56,7 @@ def process_gff(path):
 
 def get_flags(flag):
     """
-    Decode sam alignment flags.
+    Decode sam alignment flags. Indexing is i-1 of real indexing.
     """
     flag_dict = {
         0: 'paired',
@@ -73,12 +73,13 @@ def get_flags(flag):
         11: 'supplementary_alignment',
     }
     flag = int(flag)
-    if flag > 0:
+    if flag == 0:
+        return 'forward_strand'
+    else:
         get_inx = [i for i, v in enumerate(list(bin(flag)[::-1])) if v == '1']
         decoded_flag = [flag_dict[flg] for flg in get_inx]
         return ';'.join(decoded_flag)
-    else:
-        return 'forward_strand'
+
 
 
 def check_seq_annotations(sam, annot_grp):
