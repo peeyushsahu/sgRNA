@@ -5,9 +5,9 @@ sgRNA characterization
 To run it smoothly we need below folder structure, git clone should do the job.
 ### Project structure
 > - **main.nf** (pipeline script)
-> - **sgRNA_alignment.nf** (pipeline process)
+> - **sgRNA_alignment.nf** (pipeline processes)
 > - **sgRNA_processing.py** (script to process aligned sam file)
-> - **nextflow.config** (configuration file for process)
+> - **nextflow.config** (configuration file for processes)
 > - **Dockerfile** (file to build docker image)
 >   - **data** (folder)
 >     - **input** (folder with query .fa files)
@@ -19,7 +19,7 @@ To run it smoothly we need below folder structure, git clone should do the job.
 >       - **xyz.sam_final_df.tsv** (sam result file with mapped gene annotation and joined with TCGA FPKM gene expression)
 >       - **xyz.sam_summary.json** (Some statistics on the results)
 >       - **un-seqs** (sequences those were not aligned)
->   - **TCGA** (folder with each project has one folder with expression data inside)
+>     - **TCGA** (folder with each project has one folder with expression data inside)
 >   - **tools** (folder has tools used in analysis)
 
 ## How to run the pipeline (Included results are generated using GRCh38)
