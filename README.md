@@ -30,8 +30,8 @@ folder
 - if needed add more gene expression data in the TCGA folder
 
 If the overall structure is maintained then we don't have to do a lot. One **important thing is that we mount local directory 
-data as /app/data**. This is important so we don't have to create very large images but of course that can also be done. 
-
+data as /app/data** when running with docker. This is important, so we don't have to create very large images but of course that can also be done. 
+Following are the parameters needed for the run.
 ![1691357833316blob.jpg](1691357833316blob.jpg)
 
 ### Inside/With Docker container
