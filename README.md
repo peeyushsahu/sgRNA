@@ -29,9 +29,10 @@ folder
 - put your sequences to analyzed in the input folder. 
 - if needed add more gene expression data in the TCGA folder
 
-If the overall structure is maintained then we don't have to do a lot. One **important thing is that we mount local directory 
+If the overall folder structure is maintained then we don't have to do a lot. One **important thing is that we mount local directory 
 data as /app/data** when running with docker. This is important, so we don't have to create very large images but of course that can also be done. 
 Following are the parameters needed for the run.
+
 ![1691357833316blob.jpg](1691357833316blob.jpg)
 
 ### Inside/With Docker container
@@ -46,12 +47,12 @@ loading into docker we just map the folder with **-v**.
 
 ###### Without bowtie2index
 `docker run 
--rm -v /local/folder/with/project/and/files:/app/data sgrna:version ./nextflow -c nextflow.config main.nf --buildind=true`
+--rm -v /local/folder/with/project/and/files:/app/data sgrna:version ./nextflow -c nextflow.config main.nf --buildind=true`
 
 ###### With bowtie2index
 
 `docker run 
--rm -v /local/folder/with/project/and/files:/app/data sgrna:version ./nextflow main.nf`
+--rm -v /local/folder/with/project/and/files:/app/data sgrna:version ./nextflow main.nf`
 
 This shall produce the files in the data/output folder.
 
