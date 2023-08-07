@@ -11,7 +11,7 @@ To run it smoothly we need below folder structure, git clone should do the job.
 > - **Dockerfile** (file to build docker image)
 >   - **data** (folder)
 >     - **input** (folder with query .fa files)
->     - **genomes** (folder holds .gtf and .fa from ref genome)
+>     - **genome** (folder holds .gtf and .fa from ref genome)
 >     - **bwt2ind** (bowtie2 index will be created inside)
 >     - **output** (folder to store all the results)
 >       - **xyz.sam** (bowtie2 alignment)
@@ -22,13 +22,19 @@ To run it smoothly we need below folder structure, git clone should do the job.
 >   - **TCGA** (folder with each project has one folder with expression data inside)
 >   - **tools** (folder has tools used in analysis)
 
-## How to run
-Clone the repository and add genome fasta (.fa) and gene annotation file (.gtf) from the reference genome in the genome 
-folder. If the overall structure is maintained then we don't have to do a lot.
+## How to run the pipeline (Included results are generated using GRCh38)
+After cloning the repository, 
+- add genome fasta (.fa) and gene annotation file (.gtf) from the reference genome in the genome 
+folder 
+- put your sequences to analyzed in the input folder. 
+- if needed add more gene expression data in the TCGA folder
+
+If the overall structure is maintained then we don't have to do a lot. One **important thing is that we mount local directory 
+data as /app/data**. This is important so we don't have to create very large images but of course that can also be done. 
 
 ![1691357833316blob.jpg](1691357833316blob.jpg)
 
-### Inside docker
+### Inside/With Docker container
  After that we can start the pipeline. Let's build the image first. Goto the sgRNA directory and run following command.
  
 `docker build -t sgrna:version`
@@ -36,16 +42,24 @@ folder. If the overall structure is maintained then we don't have to do a lot.
 Once the docker image is created we can run the pipeline. However, instead of loading all the indexes and genome file 
 loading into docker we just map the folder with **-v**.
 
-#### Without bowtie2index
+#### Insider docker container
+
+###### Without bowtie2index
 `docker run 
 -rm -v /local/folder/with/project/and/files:/app/data sgrna:version ./nextflow -c nextflow.config main.nf --buildind=true`
 
-#### With bowtie2index
+###### With bowtie2index
 
 `docker run 
 -rm -v /local/folder/with/project/and/files:/app/data sgrna:version ./nextflow main.nf`
 
 This shall produce the files in the data/output folder.
+
+#### With docker container
+
+You can use docker container with versioned tools to run the pipeline, and same as before for with or witout bowtie2index. 
+
+`./nextflow -c nextflow.config main.nf -with-docker sgrna:version`
 
 ### Without docker container
 
@@ -60,4 +74,10 @@ or after creating it
 
 `./nextflow -c nextflow.config main.nf`
 
-`./nextflow -c nextflow.config main.nf -with-docker sgrna:version`
+## Result interpretation
+Pipeline generates five output files as shown in the dir structure. Two more important files are:
+- **xyz.sam_summary.json**: This file has an overview of sequence alignement and annotation match between given and found.
+- **xyz.sam_final_df.tsv**: this file contains three different information
+  - Chromosome, start, strand, & cigar information for the aligned sequence
+  - Mapping of the aligned regio with annotation file (.gtf) and extract matched gene pos, and name.
+  - Mapping of gene expression of mapped genes with TCGA data 
