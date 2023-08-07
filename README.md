@@ -77,8 +77,8 @@ or after creating it
 
 ## Result interpretation
 Pipeline generates five output files as shown in the dir structure. Two more important files are:
-- **xyz.sam_summary.json**: This file has an overview of sequence alignement and annotation match between given and found.
+- **xyz.sam_summary.json**: This file has an overview of sequence alignement and annotation match between given and found gene annotation.
 - **xyz.sam_final_df.tsv**: this file contains three different information
   - Chromosome, start, strand, & cigar information for the aligned sequence
-  - Mapping of the aligned regio with annotation file (.gtf) and extract matched gene pos, and name.
-  - Mapping of gene expression of mapped genes with TCGA data 
+    - Position based mapping of the sequence aligned region with annotation file (.gtf) and extracted matches of gene pos, and name.
+    - Gene expression of sgRNA mapped genes with TCGA-BRCA dataset. 
