@@ -96,9 +96,10 @@ def check_seq_annotations(sam, annot_grp):
         if sam_ch in annot_grp.groups.keys():
             for ind, row in sam_df.iterrows():
                 annt_temp = annot_grp.get_group(row[2])
+                #annt_temp_r = annt_temp.get_group(row[2]).sort_values("stop", ascending=True)
                 # Running binary search to find the match between seq aligned location and gene from gff
                 df_ind_l = annt_temp['start'].searchsorted(row[3], side='left')
-                #df_ind_r = annt_temp['stop'].searchsorted(row[3]+20, side='right')
+                #df_ind_r = annt_temp_r['stop'].searchsorted(row[3]+20, side='right')
                 #if (df_ind_r - df_ind_l) > 1:
                 #    print(annt_temp.iloc[df_ind_l:df_ind_r,:])
                 #    raise Warning('sgRNA {} is present in more than on gene region'.format(row[0]))
