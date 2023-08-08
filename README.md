@@ -19,14 +19,14 @@ To run it smoothly we need below folder structure, git clone should do the job.
 >       - **xyz.sam_final_df.tsv** (sam result file with mapped gene annotation and joined with TCGA FPKM gene expression)
 >       - **xyz.sam_summary.json** (Some statistics on the results)
 >       - **un-seqs** (sequences those were not aligned)
->     - **TCGA** (folder with each project has one folder with expression data inside)
+>     - **TCGA** (external data folder, with each dataset/project having one folder with expression data inside)
 >   - **tools** (folder has tools used in analysis)
 
 ## How to run the pipeline (Included results are generated using GRCh38)
 After cloning the repository, 
 - add genome fasta (.fa) and gene annotation file (.gtf) from the reference genome in the genome 
 folder 
-- put your sequences to analyzed in the input folder. 
+- copy your sequences to be analyzed in the input folder. 
 - if needed add more gene expression data in the TCGA folder
 
 If the overall folder structure is maintained then we don't have to do a lot. One **important thing is that we mount local directory 
@@ -78,7 +78,7 @@ or after creating it
 ## Result interpretation
 Pipeline generates five output files as shown in the dir structure. Two more important files are:
 - **xyz.sam_summary.json**: This file has an overview of sequence alignement and annotation match between given and found gene annotation.
-- **xyz.sam_final_df.tsv**: this file contains three different information
+- **xyz.sam_final_df.tsv**: this file contains three different level of information
   - Chromosome, start, strand, & cigar information for the aligned sequence
-    - Position based mapping of the sequence aligned region with annotation file (.gtf) and extracted matches of gene pos, and name.
-    - Gene expression of sgRNA mapped genes with TCGA-BRCA dataset. 
+  - Position based mapping of the sequence aligned region with annotation file (.gtf) and extracted matches of gene position, and name.
+  - Gene expression of sgRNA mapped genes with TCGA-BRCA dataset. 
